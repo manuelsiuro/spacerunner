@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/level_select_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_grey_900"
+    android:fitsSystemWindows="true">
+
+    <TextView
+        android:id="@+id/title_select_level"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:paddingTop="@dimen/size_normal"
+        android:paddingBottom="@dimen/size_normal"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:gravity="center"
+        android:text="@string/select_level_text"
+        android:textColor="@color/md_white_1000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_level"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnBack"
+        app:layout_constraintTop_toBottomOf="@+id/title_select_level"
+        tools:listitem="@layout/item_level"/>
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_medium"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:layout_marginBottom="@dimen/size_medium"
+        android:background="@drawable/yellow_button_style"
+        android:paddingStart="@dimen/size_medium"
+        android:paddingEnd="@dimen/size_medium"
+        android:text="@string/btn_back_text"
+        android:textColor="@color/colorButtonText"
+        android:textSize="@dimen/button_title_font"
+        app:layout_constraintTop_toBottomOf="@id/list_level"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,35 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTextStyleRegular">
+        <item name="android:typeface">sans</item>
+        <item name="android:fontFamily">@font/alba</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+    </style>
+
+    <style name="Large" parent="AppTextStyleRegular">
+        <item name="android:textSize">@dimen/text_size_large</item><!-- 36sp -->
+    </style>
+
+    <style name="Heading" parent="AppTextStyleRegular">
+        <item name="android:textSize">@dimen/text_size_heading</item><!-- 24sp -->
+    </style>
+
+    <style name="Body_1" parent="AppTextStyleRegular">
+        <item name="android:textSize">@dimen/text_size_medium</item><!-- 16sp -->
+    </style>
+
+    <style name="Body_2" parent="AppTextStyleRegular">
+        <item name="android:textSize">@dimen/text_size_normal</item><!-- 14sp -->
+    </style>
+
+</resources>

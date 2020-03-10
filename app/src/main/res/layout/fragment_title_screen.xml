@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/title_screen_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_grey_900">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_extra_large"
+        android:background="@drawable/logo"
+        android:contentDescription="@string/app_name"
+        android:scaleType="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginTop="@dimen/size_medium"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:background="@drawable/green_button_style"
+        android:paddingStart="@dimen/size_medium"
+        android:paddingEnd="@dimen/size_medium"
+        android:text="@string/btn_start_text"
+        style="@style/Body_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnOptions" />
+
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:layout_marginBottom="@dimen/size_medium"
+        android:background="@drawable/red_button_style"
+        android:paddingStart="@dimen/size_medium"
+        android:paddingEnd="@dimen/size_medium"
+        android:text="@string/btn_quit_text"
+        style="@style/Body_1"
+        app:layout_constraintBottom_toTopOf="@+id/author"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnScore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginTop="@dimen/size_medium"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:background="@drawable/yellow_button_style"
+        android:paddingStart="@dimen/size_medium"
+        android:paddingEnd="@dimen/size_medium"
+        android:text="@string/btn_score_text"
+        style="@style/Body_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btnOptions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginTop="@dimen/size_medium"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:background="@drawable/yellow_button_style"
+        android:paddingStart="@dimen/size_medium"
+        android:paddingEnd="@dimen/size_medium"
+        android:text="@string/btn_options_text"
+        style="@style/Body_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnHowToPlay" />
+
+    <Button
+        android:id="@+id/btnHowToPlay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginTop="@dimen/size_medium"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:background="@drawable/yellow_button_style"
+        android:paddingStart="@dimen/size_medium"
+        android:paddingEnd="@dimen/size_medium"
+        android:text="@string/btn_how_to_play_text"
+        style="@style/Body_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnScore" />
+
+
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:layout_marginBottom="@dimen/size_medium"
+        android:gravity="center"
+        android:text="@string/game_author_text"
+        style="@style/Body_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

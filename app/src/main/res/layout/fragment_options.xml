@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/options_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_grey_900"
+    android:fitsSystemWindows="true">
+
+    <TextView
+        android:id="@+id/title_options"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:gravity="center"
+        android:paddingTop="@dimen/size_normal"
+        android:paddingBottom="@dimen/size_normal"
+        android:text="@string/options_text"
+        android:textColor="@color/md_white_1000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/switch_sound"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginTop="@dimen/size_extra_large"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:checked="false"
+        android:text="@string/enable_sound"
+        android:textColor="@color/md_white_1000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_options" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/switch_music"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginTop="@dimen/size_extra_large"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:checked="false"
+        android:text="@string/enable_music"
+        android:textColor="@color/md_white_1000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch_sound" />
+
+    <TextView
+        android:id="@+id/label_ship_color"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginTop="@dimen/size_extra_large"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:text="@string/ship_color"
+        android:textColor="@color/md_white_1000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/current_ship_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch_music" />
+
+    <ImageView
+        android:id="@+id/current_ship_color"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:background="@color/md_light_blue_900"
+        app:layout_constraintBottom_toBottomOf="@+id/label_ship_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/label_ship_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginTop="@dimen/size_extra_large"
+        android:layout_marginEnd="@dimen/size_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/current_ship_color">
+
+        <ImageView
+            android:id="@+id/picker_color_1"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="@dimen/size_medium"
+            android:background="@color/md_light_blue_900" />
+
+        <ImageView
+            android:id="@+id/picker_color_2"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="@dimen/size_medium"
+            android:background="@color/md_red_900" />
+
+        <ImageView
+            android:id="@+id/picker_color_3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="@dimen/size_medium"
+            android:background="@color/md_green_900" />
+
+        <ImageView
+            android:id="@+id/picker_color_4"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="@dimen/size_medium"
+            android:background="@color/md_orange_900" />
+
+        <ImageView
+            android:id="@+id/picker_color_5"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="@dimen/size_medium"
+            android:background="@color/md_pink_900" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginTop="@dimen/size_medium"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:layout_marginBottom="@dimen/size_medium"
+        android:background="@drawable/yellow_button_style"
+        android:paddingStart="@dimen/size_medium"
+        android:paddingEnd="@dimen/size_medium"
+        android:text="@string/btn_back_text"
+        android:textColor="@color/colorButtonText"
+        android:textSize="@dimen/button_title_font"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>

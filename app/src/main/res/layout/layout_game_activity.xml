@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- OpenGL -->
+    <android.opengl.GLSurfaceView
+        android:id="@+id/game_surface_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Top bar-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/md_grey_900">
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_medium"
+            android:layout_marginTop="@dimen/size_normal"
+            android:layout_marginBottom="@dimen/size_normal"
+            tools:text="Score"
+            style="@style/Body_1"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_medium"
+            android:layout_marginTop="@dimen/size_normal"
+            android:layout_marginBottom="@dimen/size_normal"
+            tools:text="Time"
+            style="@style/Body_1"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/hearth_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginTop="@dimen/size_medium"
+        android:background="@drawable/ic_heart_line"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_bar"/>
+
+    <ProgressBar
+        android:id="@+id/health"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginBottom="@dimen/size_medium"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:max="100"
+        android:progress="100"
+        app:layout_constraintBottom_toBottomOf="@+id/hearth_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hearth_icon"
+        app:layout_constraintTop_toTopOf="@+id/hearth_icon"
+        app:layout_constraintVertical_bias="0" />
+
+    <!-- Win/Loose -->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/end_game"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/size_normal"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/md_grey_900"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <TextView
+            android:id="@+id/game_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="You Win / You Loose"
+            style="@style/Large"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_bias="0.3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Button
+            android:id="@+id/restart_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_medium"
+            android:layout_marginTop="@dimen/size_medium"
+            android:layout_marginEnd="@dimen/size_medium"
+            android:background="@drawable/green_button_style"
+            android:paddingStart="@dimen/size_medium"
+            android:paddingEnd="@dimen/size_medium"
+            android:text="@string/btn_restart_text"
+            style="@style/Body_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_medium"
+            android:layout_marginTop="@dimen/size_medium"
+            android:layout_marginEnd="@dimen/size_medium"
+            android:background="@drawable/yellow_button_style"
+            android:paddingStart="@dimen/size_medium"
+            android:paddingEnd="@dimen/size_medium"
+            android:text="@string/btn_back_text"
+            style="@style/Body_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/restart_button" />
+    </android.support.constraint.ConstraintLayout>
+
+    <!-- Countdown -->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/countdown_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size_normal"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <TextView
+            android:id="@+id/counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="3"
+            style="@style/Large"
+            android:textSize="98sp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_bias="0.3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>

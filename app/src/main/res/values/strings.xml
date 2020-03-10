@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SPACE RUNNER</string>
+    <string name="btn_start_text">Play</string>
+    <string name="btn_quit_text">Quit</string>
+    <string name="game_author_text">2020 For Eva &amp; Quentin By Manu ;)</string>
+    <string name="btn_score_text">Score</string>
+    <string name="btn_options_text">Options</string>
+    <string name="btn_how_to_play_text">How to play</string>
+    <string name="select_level_text">Select level</string>
+    <string name="btn_back_text">Back</string>
+    <string name="options_text">Options</string>
+    <string name="enable_sound">Disable sound</string>
+    <string name="enable_music">Disable music</string>
+    <string name="ship_color">Ship color</string>
+    <string name="btn_restart_text">Play again</string>
+    <string name="win_status">You win!</string>
+    <string name="loose_status">You loose!</string>
+
+</resources>
