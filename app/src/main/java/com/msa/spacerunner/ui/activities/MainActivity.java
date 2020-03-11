@@ -8,14 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.msa.spacerunner.GameData;
 import com.msa.spacerunner.GamePreferences;
-import com.msa.spacerunner.GameRecord;
 import com.msa.spacerunner.ui.fragments.LevelSelectFragment;
 import com.msa.spacerunner.ui.fragments.OptionsFragment;
 import com.msa.spacerunner.ui.fragments.TitleScreenFragment;
 import com.msa.spacerunner.ui.fragments.TutorialFragment;
-import com.msa.spacerunner.ui.fragments.ViewRecordsFragment;
 
 // DOC:
 // https://medium.com/@xzan/opengl-le-guide-du-noob-pour-d%C3%A9veloppeur-android-78f069c7214d
@@ -29,10 +26,11 @@ import com.msa.spacerunner.ui.fragments.ViewRecordsFragment;
 
 //https://blogs.perficient.com/2017/09/28/build-graphics-with-opengl-es-2-0/
 
-public class MainActivity extends Activity implements TitleScreenFragment.OnActionListener/*, LevelSelectFragment.OnItemSelectedListener*/ {
+// Sphere : https://github.com/NickBeeuwsaert/OpenGL-ES-2.0-Example/tree/master/src/com/razerwolf/opengles20example
+
+public class MainActivity extends Activity implements TitleScreenFragment.OnActionListener {
 
     final static int FRAME_ID = 10;
-    static boolean inRecordsSelect;
     public static boolean soundOff;
     public static boolean musicOff;
 
@@ -52,7 +50,7 @@ public class MainActivity extends Activity implements TitleScreenFragment.OnActi
         addTransaction.replace(FRAME_ID, tf);
         addTransaction.commit();
 
-        inRecordsSelect = false;
+
         soundOff = GamePreferences.isSoundDisabled(this);
         musicOff = GamePreferences.isMusicDisabled(this);
 
@@ -70,15 +68,19 @@ public class MainActivity extends Activity implements TitleScreenFragment.OnActi
 
         switch (action) {
             case TitleScreenFragment.ACTION_START_GAME:
-                inRecordsSelect = false;
-                activateLevelSelectFragment();
+
+                //activateLevelSelectFragment();
 
                 /*Intent intent = new Intent(this, LessonFourActivity.class);
                 startActivity(intent);*/
+
+                Intent intent = new Intent(this, ShipEditorActivity.class);
+                startActivity(intent);
+
                 break;
             case TitleScreenFragment.ACTION_SCORES:
-                inRecordsSelect = true;
-                //activateViewRecordsFragment();
+
+
                 // Todo: handle record
                 break;
             case TitleScreenFragment.ACTION_OPTIONS:
@@ -99,16 +101,6 @@ public class MainActivity extends Activity implements TitleScreenFragment.OnActi
         addTransaction.addToBackStack(null);
         LevelSelectFragment levelSelectFragment = new LevelSelectFragment();
         addTransaction.replace(FRAME_ID, levelSelectFragment);
-        addTransaction.commit();
-    }
-
-    private void activateViewRecordsFragment(GameRecord record) {
-        FragmentManager fragManager = getFragmentManager();
-        FragmentTransaction addTransaction = fragManager.beginTransaction();
-        addTransaction.addToBackStack(null);
-        ViewRecordsFragment viewRecordsFragment = new ViewRecordsFragment();
-        viewRecordsFragment.setRecord(record);
-        addTransaction.replace(FRAME_ID, viewRecordsFragment);
         addTransaction.commit();
     }
 
@@ -143,23 +135,4 @@ public class MainActivity extends Activity implements TitleScreenFragment.OnActi
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
-
-    /**
-     * Interface method for the LevelSelectFragment; either starts a game using the selected level,
-     *  or views the records for the selected level.
-     * @param gameListFragment - not really used
-     * @param gameName - Name of the level selected
-     */
-    /*@Override
-    public void onItemSelected(LevelSelectFragment gameListFragment, String gameName) {
-        if (inRecordsSelect) {
-            activateViewRecordsFragment(GameData.getGameRecord(gameName));
-        } else {
-            Intent intent = new Intent(this, GameActivity.class);
-            intent.putExtra("gameName", gameName);
-            intent.putExtra("soundOff", soundOff);
-            intent.putExtra("musicOff", musicOff);
-            startActivity(intent);
-        }
-    }*/
 }

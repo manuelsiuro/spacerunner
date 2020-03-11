@@ -170,7 +170,6 @@ public class GameActivity extends Activity implements GLSurfaceView.Renderer {
         setContentView(R.layout.layout_game_activity);
         hideSystemUI();
 
-        //Retrieve the level data from the Intent data used to start activity (from MainActivity)
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) {
             _gameName = bundle.getString(GameConstants.GAME_NAME);
@@ -178,30 +177,20 @@ public class GameActivity extends Activity implements GLSurfaceView.Renderer {
             noSound = bundle.getBoolean(GameConstants.GAME_SOUND_OFF);
         }
 
-        //Initialize the structure for touch inputs
+        //Touch inputs
         _activePointers = new HashMap<>();
 
-        //Create the OpenGL window
-        //GLSurfaceView surfaceView = new GLSurfaceView(this);
         GLSurfaceView surfaceView = findViewById(R.id.game_surface_view);
         surfaceView.setEGLContextClientVersion(2);
         surfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
         surfaceView.setRenderer(this);
 
-        findViewById(R.id.restart_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                findViewById(R.id.end_game).setVisibility(View.GONE);
-                restartTrack();
-            }
+        findViewById(R.id.restart_button).setOnClickListener(v -> {
+            findViewById(R.id.end_game).setVisibility(View.GONE);
+            restartTrack();
         });
 
-        findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.back_button).setOnClickListener(v -> finish());
 
         initializeSound();
     }
@@ -228,14 +217,12 @@ public class GameActivity extends Activity implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
         initializeGL();
 
-        //Initialize arrays
         _modelViewMatrix = new float[16];
         _shipNodes = new Node[3];
 
-        initializeBoard(); //Method that initializes the game board
+        initializeBoard();
         initializeGameValues();
 
-        //Play the countdown noise! (Game is starting!)
         playNoise(Noises.COUNTDOWN);
     }
 
@@ -257,7 +244,7 @@ public class GameActivity extends Activity implements GLSurfaceView.Renderer {
                 }
                 break;
             case PLAYING:
-                if (_shipPositionZ + _positionOffset > _trackSize) { //Reach the end of the track
+                if (_shipPositionZ + _positionOffset > _trackSize) {
                     _gameState = GameState.WIN;
                     clearButtonPresses();
                 } else
@@ -441,13 +428,13 @@ public class GameActivity extends Activity implements GLSurfaceView.Renderer {
             }
 
             if (actor.getType() == GameActor.ActorType.speed) {
-                Matrix.rotateM(instanceMatrix, 0, theta * 2.0f, 0.0f, 0.0f, 1.0f);
-                Matrix.scaleM(instanceMatrix, 0, 0.2f, 0.2f, 0.8f);
+                Matrix.rotateM(instanceMatrix, 0, theta * 2.0f, 0.0f, 1.0f, 0.0f);
+                Matrix.scaleM(instanceMatrix, 0, 0.4f, 0.4f, 0.4f);
             }
 
             if (actor.getType() == GameActor.ActorType.slow) {
                 Matrix.rotateM(instanceMatrix, 0, theta * 2.0f, 0.0f, 1.0f, 0.0f);
-                Matrix.scaleM(instanceMatrix, 0, 0.2f, 0.8f, 0.2f);
+                Matrix.scaleM(instanceMatrix, 0, 0.4f, 0.4f, 0.4f);
             }
 
 
@@ -472,7 +459,7 @@ public class GameActivity extends Activity implements GLSurfaceView.Renderer {
         }
 
         //lower layer
-        GLES20.glUseProgram(_program);
+        //GLES20.glUseProgram(_program);
         for (int i = 0; i < GameBoard.BOARD_WIDTH; i++) {
             GameActor actor = _gameBoard.getBoard().get(pos).getLowerLayer()[i];
 
@@ -1139,13 +1126,13 @@ public class GameActivity extends Activity implements GLSurfaceView.Renderer {
     //https://www.learnopengles.com/tag/ambient-lighting/
     //https://github.com/learnopengles/Learn-OpenGLES-Tutorials/tree/master/android/AndroidOpenGLESLessons/app/src/main/res/raw
 
-    protected String getVertexShader() {
+    /*protected String getVertexShader() {
         return RawResourceReader.readTextFileFromRawResource(this, R.raw.per_pixel_vertex_shader);
-    }
+    }*/
 
-    protected String getFragmentShader() {
+    /*protected String getFragmentShader() {
         return RawResourceReader.readTextFileFromRawResource(this, R.raw.per_pixel_fragment_shader);
-    }
+    }*/
 
     private void initializeGL() {
         //Read shaders from files
@@ -1256,11 +1243,11 @@ public class GameActivity extends Activity implements GLSurfaceView.Renderer {
         //Initialize and create the perspective matrices
         _projectionMatrix = new float[16];
         Matrix.perspectiveM(_projectionMatrix, 0, 90.0f, ratio, 0.01f, 30.0f);
-        _wordsProjectionMatrix = _projectionMatrix.clone(); //Used for drawing text
+        //_wordsProjectionMatrix = _projectionMatrix.clone(); //Used for drawing text
 
         //Move things back a bit
         Matrix.translateM(_projectionMatrix, 0, 0.0f, 0.0f, -3.0f);
-        Matrix.translateM(_wordsProjectionMatrix, 0, 0.0f, 0.0f, -1.0f);
+        //Matrix.translateM(_wordsProjectionMatrix, 0, 0.0f, 0.0f, -1.0f);
     }
     //----------------------------------------------------------------------------------------------
     private enum Noises {BUMP, COUNTDOWN, COIN, SPEED_UP, SPEED_DOWN}

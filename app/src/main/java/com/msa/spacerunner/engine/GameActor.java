@@ -30,6 +30,7 @@ public class GameActor {
             case move_up:
             case move_down:
                 points = GeometryBuilder.getCube();
+                //points = GeometryBuilder.getDiamond();
                 ambient = new float[]{0.2f, 0.2f, 0.2f, 1.0f};
                 diffuse = new float[]{0.4f, 0.4f, 0.4f, 1.0f};
                 specular = getRandomSpecularColor();
@@ -50,14 +51,16 @@ public class GameActor {
                 shine = 5.0f;
                 break;
             case speed:
-                points = GeometryBuilder.getCube();
+                //points = GeometryBuilder.getCube();
+                points = GeometryBuilder.getDiamond();
                 ambient = new float[]{0.3f, 0.3f, 0.1f, 0.8f};
                 diffuse = new float[]{0.7f, 0.7f, 0.2f, 0.8f};
                 specular = new float[]{0.0f, 1.0f, 0.0f, 1.0f};
                 shine = 5.0f;
                 break;
             case slow:
-                points = GeometryBuilder.getCube();
+                //points = GeometryBuilder.getCube();
+                points = GeometryBuilder.getDiamond();
                 ambient = new float[]{0.3f, 0.3f, 0.1f, 0.8f};
                 diffuse = new float[]{0.7f, 0.7f, 0.2f, 0.8f};
                 specular = new float[]{1.0f, 0.0f, 0.0f, 1.0f};

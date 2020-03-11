@@ -12,18 +12,13 @@ import android.widget.TextView;
 
 import com.msa.spacerunner.R;
 
-/**
- *
- *  Displays a series of images that serve as a tutorial for the user.
- */
-public class TutorialFragment extends Fragment
-{
+
+public class TutorialFragment extends Fragment {
     ImageView image;
     TextView bottomFrame;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LinearLayout tutorialLayout = new LinearLayout(getActivity());
         tutorialLayout.setBackgroundColor(0xFF000000);
         tutorialLayout.setOrientation(LinearLayout.VERTICAL);

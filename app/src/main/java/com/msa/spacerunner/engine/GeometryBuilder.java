@@ -1,6 +1,8 @@
 package com.msa.spacerunner.engine;
 
 
+import java.util.Arrays;
+
 public class GeometryBuilder {
     //Points for various geometry
 
@@ -34,6 +36,14 @@ public class GeometryBuilder {
         0f, -0.4041f, 0.8083f
     };
 
+    private final static float[] diamondPoints = {
+            0.0f, 0.8083f, 0.0f,    //top
+            0.7f, -0.4041f, -0.4041f,
+            -0.7f, -0.4041f, -0.4041f,
+            0f, -0.4041f, 0.8083f,
+            0.0f, -0.8083f, 0.0f
+    };
+
     private final static float[] cubePoints = {
         -0.5f, -0.5f, 0.5f,             //bottom left front
         -0.5f, 0.5f, 0.5f,              //top left front
@@ -60,7 +70,7 @@ public class GeometryBuilder {
                 0, 2, 3
         };
 
-        planeTriangles = new float[24];
+        planeTriangles = new float[elements.length * 4];
         int j = 0;
         for (int i = 0; i < planeTriangles.length; i += 4) {
             planeTriangles[i] = planePoints[elements[j] * 3];
@@ -87,7 +97,7 @@ public class GeometryBuilder {
                 2, 1, 3
         };
 
-        squareTriangles = new float[24];
+        squareTriangles = new float[elements.length * 4];
         int j = 0;
         for (int i = 0; i < squareTriangles.length; i += 4) {
             squareTriangles[i] = squarePoints[elements[j] * 3];
@@ -116,7 +126,7 @@ public class GeometryBuilder {
                 0, 3, 2
         };
 
-        rightTetraTriangles = new float[48];
+        rightTetraTriangles = new float[elements.length * 4];
         int j = 0;
         for (int i = 0; i < rightTetraTriangles.length; i += 4) {
             rightTetraTriangles[i] = rightTetraPoints[elements[j] * 3];
@@ -126,7 +136,11 @@ public class GeometryBuilder {
             j++;
         }
 
+        //System.out.println(Arrays.toString(rightTetraTriangles));
+
         rightTetraTriangleNormals = getNormalsOfShape(rightTetraTriangles);
+
+        //System.out.println(Arrays.toString(rightTetraTriangleNormals));
 
         return new PointsPackage(rightTetraTriangles, rightTetraTriangleNormals);
     }
@@ -145,7 +159,7 @@ public class GeometryBuilder {
                 1, 3, 2
         };
 
-        tetraTriangles = new float[12 * 4];
+        tetraTriangles = new float[elements.length * 4];
         int j = 0;
         for (int i = 0; i < tetraTriangles.length; i += 4) {
             tetraTriangles[i] = tetraPoints[elements[j] * 3];
@@ -167,7 +181,6 @@ public class GeometryBuilder {
         if (fourSidesTriangles != null && fourSidesTriangleNormals != null)
             return new PointsPackage(fourSidesTriangles, fourSidesTriangleNormals);
 
-        fourSidesTriangles = new float[24 * 4];
         int[] elements = {
                 1, 0, 3,
                 1, 3, 2,
@@ -181,6 +194,7 @@ public class GeometryBuilder {
                 5, 4, 0,
                 5, 0, 1
         };
+        fourSidesTriangles = new float[elements.length * 4];
 
         int j = 0;
         for (int i = 0; i < fourSidesTriangles.length; i += 4) {
@@ -203,7 +217,6 @@ public class GeometryBuilder {
         if (cubeTriangles != null && cubeTriangleNormals != null)
             return new PointsPackage(cubeTriangles, cubeTriangleNormals);
 
-        cubeTriangles = new float[36 * 4];
         int[] elements = {
                 1, 0, 3,
                 1, 3, 2,
@@ -223,6 +236,7 @@ public class GeometryBuilder {
                 5, 4, 0,
                 5, 0, 1
         };
+        cubeTriangles = new float[elements.length * 4];
 
         int j = 0;
         for (int i = 0; i < cubeTriangles.length; i += 4) {
@@ -237,6 +251,38 @@ public class GeometryBuilder {
 
         return new PointsPackage(cubeTriangles, cubeTriangleNormals);
     }
+
+    private static float[] diamondTriangles = null;
+    private static float[] diamondTriangleNormals = null;
+
+    public static PointsPackage getDiamond() {
+        if (diamondTriangles != null && diamondTriangleNormals != null)
+            return new PointsPackage(diamondTriangles, diamondTriangleNormals);
+
+        int[] elements = {
+                1, 0, 3,
+                3, 0, 2,
+                2, 0, 1,
+                //1, 3, 2
+                1, 4, 2,
+                2, 4, 3,
+                3, 4, 1
+        };
+
+        diamondTriangles = new float[elements.length * 4];
+        int j = 0;
+        for (int i = 0; i < diamondTriangles.length; i += 4) {
+            diamondTriangles[i] = diamondPoints[elements[j] * 3];
+            diamondTriangles[i + 1] = diamondPoints[(elements[j] * 3) + 1];
+            diamondTriangles[i + 2] = diamondPoints[(elements[j] * 3) + 2];
+            diamondTriangles[i + 3] = 1.0f;
+            j++;
+        }
+
+        diamondTriangleNormals = getNormalsOfShape(diamondTriangles);
+        return new PointsPackage(diamondTriangles, diamondTriangleNormals);
+    }
+    
 
     /**
      * Get the normals of a geometric shape made up of triangles.

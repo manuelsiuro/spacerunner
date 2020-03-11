@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 public class GameData {
 
-    private static HashMap<String, GameRecord> allRecords;
+    //private static HashMap<String, GameRecord> allRecords;
     private static HashMap<String, GameBoard> allBoards;
 
     private static String[] lastBlock = null;
@@ -349,14 +349,14 @@ public class GameData {
      * @param gameName - name of the GameBoard
      * @return - GameRecord object.
      */
-    public static GameRecord getGameRecord(String gameName) {
+    /*public static GameRecord getGameRecord(String gameName) {
         if (allRecords == null) {
             Log.i("getGameRecord", "Attempt to access records before initialized");
             return null;
         }
 
         return allRecords.get(gameName);
-    }
+    }*/
 
 
     private static GameActor getRandomPowerUpActor(BoundingBox3D bb3d) {
