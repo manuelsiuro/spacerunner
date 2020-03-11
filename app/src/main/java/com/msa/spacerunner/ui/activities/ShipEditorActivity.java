@@ -44,6 +44,8 @@ public class ShipEditorActivity extends Activity implements GLSurfaceView.Render
     int _width, _height;
     float[] _projectionMatrix;
 
+    float theta = 0.0f;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +95,7 @@ public class ShipEditorActivity extends Activity implements GLSurfaceView.Render
         GLES20.glUniformMatrix4fv(_viewLoc, 1, false, _modelViewMatrix, 0);
         GLES20.glUniformMatrix4fv(_projLoc, 1, false, _projectionMatrix, 0);
 
+        theta += 1.0f;
         float offsetY = 4.0f;
         float _shipPositionX = 0.0f;
         float _shipPositionY = 0.0f;
@@ -130,6 +133,8 @@ public class ShipEditorActivity extends Activity implements GLSurfaceView.Render
         float[] instanceMatrix = bodyModel.clone();
         Matrix.translateM(instanceMatrix, 0, 0.0f, -0.05f, 0.3f);
         Matrix.scaleM(instanceMatrix, 0, 0.15f, 0.05f, 0.35f);
+        Matrix.rotateM(instanceMatrix, 0, theta, 0.0f, 1.0f, 0.0f);
+
         Node shape = new Node(instanceMatrix);
         shape.setColor(shipAmbient, shipDiffuse, shipSpecular);
         shape.setPoints(GeometryBuilder.getCube());
@@ -140,6 +145,8 @@ public class ShipEditorActivity extends Activity implements GLSurfaceView.Render
         instanceMatrix = bodyModel.clone();
         Matrix.translateM(instanceMatrix, 0, 0.25f, 0.0f, 0.0f);
         Matrix.scaleM(instanceMatrix, 0, 0.35f, 0.15f, 1.0f);
+        Matrix.rotateM(instanceMatrix, 0, theta, 0.0f, 1.0f, 0.0f);
+
         shape = new Node(instanceMatrix);
         shape.setColor(shipAmbient, shipDiffuse, shipSpecular);
         shape.setPoints(GeometryBuilder.getRightTetrahedron());
@@ -151,16 +158,18 @@ public class ShipEditorActivity extends Activity implements GLSurfaceView.Render
         Matrix.translateM(instanceMatrix, 0, -0.25f, 0.0f, 0.0f);
         Matrix.scaleM(instanceMatrix, 0, 0.35f, 0.15f, 1.0f);
         Matrix.rotateM(instanceMatrix, 0, 90, 0.0f, 0.0f, 1.0f);
+        Matrix.rotateM(instanceMatrix, 0, theta, 0.0f, 1.0f, 0.0f);
+
         shape = new Node(instanceMatrix);
         shape.setColor(shipAmbient, shipDiffuse, shipSpecular);
         shape.setPoints(GeometryBuilder.getRightTetrahedron());
         shape.setShine(2.0f);
         _shipNodes[2] = shape;
 
-        drawPlane();
+        //drawPlane();
 
-        /*for (int i = 0; i < 3; i++)
-            _shipNodes[i].render();*/
+        for (int i = 0; i < 3; i++)
+            _shipNodes[i].renderEditor();
 
 
     }
@@ -181,7 +190,7 @@ public class ShipEditorActivity extends Activity implements GLSurfaceView.Render
         shape.setColor(ambient, diffuse, specular);
         shape.setPoints(GeometryBuilder.getPlane());
         shape.setShine(2.0f);
-        shape.render();
+        shape.renderEditor();
 
         //drawPlane();
     }
