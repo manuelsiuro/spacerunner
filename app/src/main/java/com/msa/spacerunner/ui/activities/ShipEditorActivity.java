@@ -94,9 +94,9 @@ public class ShipEditorActivity extends Activity implements GLSurfaceView.Render
         GLES20.glUniformMatrix4fv(_projLoc, 1, false, _projectionMatrix, 0);
 
         float offsetY = 4.0f;
-        float _shipPositionX = 2.0f;
-        float _shipPositionY = 1.0f;
-        float _shipPositionZ = 10.0f;
+        float _shipPositionX = 0.0f;
+        float _shipPositionY = 0.0f;
+        float _shipPositionZ = 1.0f;
         float _sideVelocity = 1.0f;
         float _verticalVelocity = 1.0f;
 
@@ -159,8 +159,8 @@ public class ShipEditorActivity extends Activity implements GLSurfaceView.Render
 
         drawPlane();
 
-        for (int i = 0; i < 3; i++)
-            _shipNodes[i].render();
+        /*for (int i = 0; i < 3; i++)
+            _shipNodes[i].render();*/
 
 
     }
@@ -200,7 +200,7 @@ public class ShipEditorActivity extends Activity implements GLSurfaceView.Render
         String programLinkLog = GLES20.glGetProgramInfoLog(_program);
         Log.d("Program Link", programLinkLog + "\n");
 
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f); //Clear color is Black
+        GLES20.glClearColor(0.5f, 0.5f, 0.5f, 1.0f); //Clear color is Black
 
         GLES20.glEnableVertexAttribArray(POSITION_ATTRIBUTE_ID);
         GLES20.glEnableVertexAttribArray(NORMAL_ATTRIBUTE_ID);

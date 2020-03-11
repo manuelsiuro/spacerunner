@@ -69,13 +69,13 @@ public class MainActivity extends Activity implements TitleScreenFragment.OnActi
         switch (action) {
             case TitleScreenFragment.ACTION_START_GAME:
 
-                //activateLevelSelectFragment();
+                activateLevelSelectFragment();
 
                 /*Intent intent = new Intent(this, LessonFourActivity.class);
                 startActivity(intent);*/
 
-                Intent intent = new Intent(this, ShipEditorActivity.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(this, ShipEditorActivity.class);
+                startActivity(intent);*/
 
                 break;
             case TitleScreenFragment.ACTION_SCORES:
