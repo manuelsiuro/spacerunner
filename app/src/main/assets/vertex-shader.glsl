@@ -3,9 +3,9 @@ attribute vec4 normal;
 
 uniform mat4 modelViewMatrix;// _mvmLoc
 uniform mat4 normalMatrix; // _normalMatrixLoc
+uniform mat4 projectionMatrix;// _projLoc
+uniform mat4 viewMatrix;// _viewLoc
 
-uniform mat4 projectionMatrix;
-uniform mat4 viewMatrix;
 uniform vec4 lightPosition[4];
 
 varying vec3 N, E;

@@ -19,6 +19,7 @@ public class TitleScreenFragment extends Fragment {
     public final static int ACTION_OPTIONS = 2;
     public final static int ACTION_HOW_TO_PLAY = 3;
     public final static int ACTION_EXIT = 4;
+    public final static int ACTION_SHIP_EDITOR = 5;
 
     OnActionListener onActionListener;
 
@@ -45,6 +46,7 @@ public class TitleScreenFragment extends Fragment {
         view.findViewById(R.id.btnScore).setOnClickListener(v -> runAnimation(ACTION_SCORES));
         view.findViewById(R.id.btnOptions).setOnClickListener(v -> runAnimation(ACTION_OPTIONS));
         view.findViewById(R.id.btnHowToPlay).setOnClickListener(v -> runAnimation(ACTION_HOW_TO_PLAY));
+        view.findViewById(R.id.btnEditor).setOnClickListener(v -> runAnimation(ACTION_SHIP_EDITOR));
 
         return view;
     }
@@ -70,6 +72,7 @@ public class TitleScreenFragment extends Fragment {
                 view.findViewById(R.id.btnScore).startAnimation(fadeIn);
                 view.findViewById(R.id.btnOptions).startAnimation(fadeIn);
                 view.findViewById(R.id.btnHowToPlay).startAnimation(fadeIn);
+                view.findViewById(R.id.btnEditor).startAnimation(fadeIn);
             }
 
             @Override
@@ -125,5 +128,6 @@ public class TitleScreenFragment extends Fragment {
         view.findViewById(R.id.btnScore).startAnimation(fadOut);
         view.findViewById(R.id.btnOptions).startAnimation(fadOut);
         view.findViewById(R.id.btnHowToPlay).startAnimation(fadOut);
+        view.findViewById(R.id.btnEditor).startAnimation(fadOut);
     }
 }

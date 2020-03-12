@@ -17,5 +17,11 @@
     <string name="btn_restart_text">Play again</string>
     <string name="win_status">You win!</string>
     <string name="loose_status">You loose!</string>
+    <string name="btn_editor_text">Ship Editor</string>
+    <string name="left_wing">Left wing</string>
+    <string name="body">Body</string>
+    <string name="right_wing">Right wing</string>
+    <string name="scale">Scale</string>
+    <string name="translate">Translate</string>
 
 </resources>

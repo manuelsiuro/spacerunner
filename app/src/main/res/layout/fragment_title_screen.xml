@@ -36,6 +36,22 @@
         app:layout_constraintTop_toBottomOf="@+id/btnOptions" />
 
     <Button
+        android:id="@+id/btnEditor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_medium"
+        android:layout_marginTop="@dimen/size_medium"
+        android:layout_marginEnd="@dimen/size_medium"
+        android:background="@drawable/blue_button_style"
+        android:paddingStart="@dimen/size_medium"
+        android:paddingEnd="@dimen/size_medium"
+        android:text="@string/btn_editor_text"
+        style="@style/Body_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStart" />
+
+    <Button
         android:id="@+id/btnExit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -15,4 +15,213 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Toolbar -->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/toolbar_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/md_grey_900"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0">
+
+        <Button
+            android:id="@+id/left_wing_button"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="@dimen/size_normal"
+            android:layout_marginBottom="@dimen/size_normal"
+            android:text="@string/left_wing"
+            android:background="@drawable/blue_button_style"
+            android:textColor="@color/md_white_1000"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/body_button"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/body_button"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="@dimen/size_normal"
+            android:layout_marginBottom="@dimen/size_normal"
+            android:text="@string/body"
+            android:background="@drawable/blue_button_style"
+            android:textColor="@color/md_white_1000"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/right_wing_button"
+            app:layout_constraintStart_toEndOf="@+id/left_wing_button" />
+
+        <Button
+            android:id="@+id/right_wing_button"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="@dimen/size_normal"
+            android:layout_marginBottom="@dimen/size_normal"
+            android:text="@string/right_wing"
+            android:background="@drawable/blue_button_style"
+            android:textColor="@color/md_white_1000"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/body_button" />
+    </android.support.constraint.ConstraintLayout>
+
+    <!-- Scale -->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/toolbar_scale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/md_grey_900"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_button"
+        app:layout_constraintVertical_bias="0">
+
+        <TextView
+            android:id="@+id/label_scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_normal"
+            android:textColor="@color/md_white_1000"
+            app:layout_constraintVertical_bias="0"
+            android:layout_marginStart="@dimen/size_medium"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/scale"/>
+
+        <SeekBar
+            android:id="@+id/sx"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_medium"
+            android:layout_marginStart="@dimen/size_medium"
+            android:layout_marginEnd="@dimen/size_medium"
+            android:max="200"
+            android:progress="135"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintTop_toBottomOf="@+id/label_scale"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <SeekBar
+            android:id="@+id/sy"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_medium"
+            android:layout_marginStart="@dimen/size_medium"
+            android:layout_marginEnd="@dimen/size_medium"
+            android:max="200"
+            android:progress="115"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintTop_toBottomOf="@+id/sx"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <SeekBar
+            android:id="@+id/sz"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_medium"
+            android:layout_marginStart="@dimen/size_medium"
+            android:layout_marginEnd="@dimen/size_medium"
+            android:max="200"
+            android:progress="200"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintTop_toBottomOf="@+id/sy"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <!-- Translate -->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/toolbar_translate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/md_grey_900"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_scale"
+        app:layout_constraintVertical_bias="0">
+
+        <TextView
+            android:id="@+id/label_translate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_medium"
+            android:textColor="@color/md_white_1000"
+            app:layout_constraintVertical_bias="0"
+            android:layout_marginStart="@dimen/size_medium"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/translate"/>
+
+        <SeekBar
+            android:id="@+id/tx"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_medium"
+            android:layout_marginStart="@dimen/size_medium"
+            android:layout_marginEnd="@dimen/size_medium"
+            android:max="200"
+            android:progress="75"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintTop_toBottomOf="@+id/label_translate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <SeekBar
+            android:id="@+id/ty"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_medium"
+            android:layout_marginStart="@dimen/size_medium"
+            android:layout_marginEnd="@dimen/size_medium"
+            android:max="200"
+            android:progress="100"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintTop_toBottomOf="@+id/tx"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <SeekBar
+            android:id="@+id/tz"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_medium"
+            android:layout_marginStart="@dimen/size_medium"
+            android:layout_marginEnd="@dimen/size_medium"
+            android:layout_marginBottom="@dimen/size_medium"
+            android:max="200"
+            android:progress="100"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintTop_toBottomOf="@+id/ty"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
