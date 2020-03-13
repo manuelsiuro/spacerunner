@@ -23,5 +23,8 @@
     <string name="right_wing">Right wing</string>
     <string name="scale">Scale</string>
     <string name="translate">Translate</string>
+    <string name="x">x</string>
+    <string name="y">y</string>
+    <string name="z">z</string>
 
 </resources>

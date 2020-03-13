@@ -3,7 +3,6 @@ package com.msa.spacerunner.ui.fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,10 +50,7 @@ public class TitleScreenFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
+    private void startAnimation() {
         if(view == null) {
             return;
         }
@@ -129,5 +125,11 @@ public class TitleScreenFragment extends Fragment {
         view.findViewById(R.id.btnOptions).startAnimation(fadOut);
         view.findViewById(R.id.btnHowToPlay).startAnimation(fadOut);
         view.findViewById(R.id.btnEditor).startAnimation(fadOut);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        startAnimation();
     }
 }

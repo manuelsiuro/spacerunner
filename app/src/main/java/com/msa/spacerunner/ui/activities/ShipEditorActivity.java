@@ -229,8 +229,8 @@ public class ShipEditorActivity extends Activity implements GLSurfaceView.Render
         shape.setShine(2.0f);
         _shipNodes[2] = shape;
 
-        for (int i = 0; i < 3; i++) {
-            _shipNodes[i].renderEditor();
+        for (Node shipNode : _shipNodes) {
+            shipNode.renderEditor();
         }
     }
 
@@ -284,6 +284,8 @@ public class ShipEditorActivity extends Activity implements GLSurfaceView.Render
     }
 
     private void initializeEditorTools() {
+
+        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
 
         findViewById(R.id.left_wing_button).setBackground(getResources().getDrawable(R.drawable.red_button_style));
 

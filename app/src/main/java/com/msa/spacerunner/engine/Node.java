@@ -120,4 +120,17 @@ public class Node {
         //Actually draw the frickin' thing
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, points.length / 4);
     }
+
+
+
+    public static FloatBuffer makeFloatBuffer ( float[] arr, int iSize )  {
+        if ( iSize == 0 )
+            iSize = arr.length;
+        ByteBuffer bb = ByteBuffer.allocateDirect ( iSize * 4 ); // Size of Float is 4 bytes
+        bb.order ( ByteOrder.nativeOrder( ) );
+        FloatBuffer fb = bb.asFloatBuffer ( );
+        fb.put ( arr );
+        fb.position ( 0 );
+        return fb;
+    }
 }
