@@ -1,8 +1,6 @@
 package com.msa.spacerunner.ui.activities;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.media.AudioAttributes;
@@ -11,7 +9,6 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.opengl.GLUtils;
 import android.opengl.Matrix;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,15 +24,9 @@ import com.msa.spacerunner.GameData;
 import com.msa.spacerunner.GamePreferences;
 import com.msa.spacerunner.R;
 import com.msa.spacerunner.collision.BoundingBox3D;
-import com.msa.spacerunner.common.RawResourceReader;
-import com.msa.spacerunner.common.ShaderHelper;
-import com.msa.spacerunner.common.TextureHelper;
-import com.msa.spacerunner.engine.Cube;
 import com.msa.spacerunner.engine.GameActor;
 import com.msa.spacerunner.engine.GeometryBuilder;
 import com.msa.spacerunner.engine.Node;
-import com.msa.spacerunner.engine.NumberGraphic;
-import com.msa.spacerunner.engine.StringGraphic;
 import com.msa.spacerunner.shaders.ShadersUtils;
 
 import java.util.HashMap;
@@ -444,18 +435,6 @@ public class GameActivity extends Activity implements GLSurfaceView.Renderer {
             shape.setColor(actor.ambient, actor.diffuse, actor.specular);
             shape.setShine(actor.shine);
             shape.render();
-            /*if (actor.getType() == GameActor.ActorType.barrier) {
-                GLES20.glUseProgram(mProgramHandle);
-                Cube cube = new Cube();
-                cube.draw(mPositionHandle, mColorHandle, mNormalHandle, mTextureCoordinateHandle, mMVPMatrixHandle, mLightPosHandle, instanceMatrix);
-            } else {
-                GLES20.glUseProgram(_program);
-                Node shape = new Node(instanceMatrix);
-                shape.setPoints(actor.getPoints());
-                shape.setColor(actor.ambient, actor.diffuse, actor.specular);
-                shape.setShine(actor.shine);
-                shape.render();
-            }*/
         }
 
         //lower layer
