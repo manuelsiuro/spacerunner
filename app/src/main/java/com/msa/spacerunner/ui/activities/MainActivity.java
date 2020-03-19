@@ -73,7 +73,8 @@ public class MainActivity extends Activity implements TitleScreenFragment.OnActi
                 startActivity(intent);*/
                 break;
             case TitleScreenFragment.ACTION_SHIP_EDITOR:
-                Intent intent = new Intent(this, ShipEditorActivity.class);
+                //Intent intent = new Intent(this, ShipEditorActivity.class);
+                Intent intent = new Intent(this, TextureActivity.class);
                 startActivity(intent);
                 break;
             case TitleScreenFragment.ACTION_SCORES:
