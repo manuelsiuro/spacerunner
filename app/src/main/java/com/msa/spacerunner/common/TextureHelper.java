@@ -42,4 +42,39 @@ public class TextureHelper {
 
         return textureHandle[0];
     }
+
+    public static int[] loadTexture(Context context, int[] resourceId) {
+
+        final int[] textureHandle = new int[resourceId.length];
+
+        for (int i = 0; i < resourceId.length; i++) {
+
+            GLES20.glGenTextures(1, textureHandle, i);
+
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inScaled = false;    // No pre-scaling
+
+            // Read in the resource
+            final Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resourceId[i], options);
+
+            // Bind to the texture in OpenGL
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureHandle[i]);
+
+            // Set filtering
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
+
+            // Load the bitmap into the bound texture.
+            GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
+
+            // Mipmap
+            GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
+
+            // Recycle the bitmap, since its data has been loaded into OpenGL.
+            bitmap.recycle();
+        }
+        return textureHandle;
+    }
 }

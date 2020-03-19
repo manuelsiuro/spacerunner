@@ -2,7 +2,6 @@ package com.msa.spacerunner.shaders;
 
 import android.content.Context;
 import android.opengl.GLES20;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,14 +31,10 @@ public class ShadersUtils {
         int vertexShader = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
         GLES20.glShaderSource(vertexShader, vertexShaderSource);
         GLES20.glCompileShader(vertexShader);
-        String vertexShaderCompileLog = GLES20.glGetShaderInfoLog(vertexShader);
-        Log.i("Vertex Shader Compile", vertexShaderCompileLog + "\n");
 
         int fragmentShader = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
         GLES20.glShaderSource(fragmentShader, fragmentShaderSource);
         GLES20.glCompileShader(fragmentShader);
-        String fragmentShaderCompileLog = GLES20.glGetShaderInfoLog(fragmentShader);
-        Log.i("fragment Shader Compile", fragmentShaderCompileLog + "\n");
 
         int program = GLES20.glCreateProgram();
         GLES20.glAttachShader(program, vertexShader);
