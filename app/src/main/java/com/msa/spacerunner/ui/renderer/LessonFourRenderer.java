@@ -404,11 +404,11 @@ public class LessonFourRenderer implements GLSurfaceView.Renderer {
     }
 
     protected String getVertexShader() {
-        return RawResourceReader.readTextFileFromRawResource(mActivityContext, R.raw.per_pixel_vertex_shader);
+        return RawResourceReader.readTextFileFromRawResource(mActivityContext, R.raw.vertex_texture_shader);
     }
 
     protected String getFragmentShader() {
-        return RawResourceReader.readTextFileFromRawResource(mActivityContext, R.raw.per_pixel_fragment_shader);
+        return RawResourceReader.readTextFileFromRawResource(mActivityContext, R.raw.fragment_texture_shader);
     }
 
     @Override

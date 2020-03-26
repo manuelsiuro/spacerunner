@@ -1106,11 +1106,11 @@ public class GameActivity extends Activity implements GLSurfaceView.Renderer {
     //https://github.com/learnopengles/Learn-OpenGLES-Tutorials/tree/master/android/AndroidOpenGLESLessons/app/src/main/res/raw
 
     /*protected String getVertexShader() {
-        return RawResourceReader.readTextFileFromRawResource(this, R.raw.per_pixel_vertex_shader);
+        return RawResourceReader.readTextFileFromRawResource(this, R.raw.vertex_texture_shader);
     }*/
 
     /*protected String getFragmentShader() {
-        return RawResourceReader.readTextFileFromRawResource(this, R.raw.per_pixel_fragment_shader);
+        return RawResourceReader.readTextFileFromRawResource(this, R.raw.fragment_texture_shader);
     }*/
 
     private void initializeGL() {

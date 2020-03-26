@@ -13,25 +13,20 @@ public class VertexArray {
     private final FloatBuffer floatBuffer;
 
     public VertexArray(float[] vertexData) {
-        // TODO Auto-generated constructor stub
         floatBuffer = ByteBuffer.allocateDirect(vertexData.length * BYTES_PER_FLOAT)
                 .order(ByteOrder.nativeOrder())
                 .asFloatBuffer()
                 .put(vertexData);
     }
 
-
-    public void setVertexAttribPointer(int dataOffset, int attributeLocation,
-                                       int componentCount, int stride){
+    public void setVertexAttribPointer(int dataOffset, int key, int size, int stride) {
         floatBuffer.position(dataOffset);
-        glVertexAttribPointer(attributeLocation, componentCount, GL_FLOAT,
-                false, stride, floatBuffer);
-        glEnableVertexAttribArray(attributeLocation);
+        glVertexAttribPointer(key, size, GL_FLOAT, false, stride, floatBuffer);
+        glEnableVertexAttribArray(key);
         floatBuffer.position(0);
     }
 
     public void updateBuffer(float[] vertexData, int start, int count) {
-        // TODO Auto-generated method stub
         floatBuffer.position(start);
         floatBuffer.put(vertexData, start, count);
         floatBuffer.position(0);

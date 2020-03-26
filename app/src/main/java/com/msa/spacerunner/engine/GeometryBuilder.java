@@ -291,7 +291,7 @@ public class GeometryBuilder {
      * @param shape - array of points representing 3D geometry in triangles
      * @return - array of normal vectors to the input shape
      */
-    private static float[] getNormalsOfShape(float[] shape) {
+    public static float[] getNormalsOfShape(float[] shape) {
         float[] ret = new float[shape.length];
         for (int i = 0; i < ret.length; i += 12) {
             float[] n = getNormalOfTriangle(
@@ -367,21 +367,23 @@ public class GeometryBuilder {
         return ret;
     }
 
-    public static float[] createCylinderBuffer ( float radius, float height, int segments )  {
-        int iBuffSize = segments * 3 * 3 + (int)( ((float)segments/3.0f+1.0f )) * 3 * 2 + 6;
+    public static float[] createCylinderBuffer(float radius, float height, int segments)  {
+
+        int iBuffSize = segments * 3 * 3 + (int)(((float)segments/3.0f+1.0f)) * 3 * 2 + 6;
         float[] buffer = new float[iBuffSize];
         int t, idx = 0;
-        float increment = (float)( 360.0f / (float)( segments - 1 ) );
+        float increment = (float)(360.0f / (float)(segments - 1));
 
         //create the top
         int iZeroCounter = 2;
         float hh = height / 2.0f;
-        for ( t=0; t<segments; t++ )  {
-            float angle = (float)( Math.PI/180.0f * t * increment );
-            float cos = (float) ( radius * Math.cos ( angle ) );
-            float sin = (float) ( radius * Math.sin ( angle ) );
+        for(t = 0; t < segments; t++)  {
 
-            if ( iZeroCounter++ >= 2 )  {
+            float angle = (float)(Math.PI/180.0f * t * increment);
+            float cos = (float)(radius * Math.cos(angle));
+            float sin = (float)(radius * Math.sin(angle));
+
+            if(iZeroCounter++ >= 2) {
                 buffer[idx++] = 0.0f;
                 buffer[idx++] = +hh;
                 buffer[idx++] = 0.0f;
@@ -393,7 +395,7 @@ public class GeometryBuilder {
         }
 
         // create the cylinder
-        for ( t=0; t<segments+2; t++ )  {
+        /*for ( t=0; t<segments+2; t++ )  {
             float angle = (float)( Math.PI/180.0f * t * increment );
             float cos = (float) ( radius * Math.cos ( angle ) );
             float sin = (float)-( radius * Math.sin ( angle ) );
@@ -402,9 +404,9 @@ public class GeometryBuilder {
             buffer[idx++] = hh;
             buffer[idx++] = sin;
             hh *= -1.0f;
-        }
+        }*/
 
-        hh = height / 2.0f;
+        /*hh = height / 2.0f;
         for ( t=0; t<segments; t++ )  {
             float angle = (float)( Math.PI/180.0f * t * increment );
             float cos = (float)-( radius * Math.cos ( angle ) );
@@ -419,7 +421,7 @@ public class GeometryBuilder {
             buffer[idx++] = cos;
             buffer[idx++] = -hh;
             buffer[idx++] = sin;
-        }
+        }*/
         return buffer;
     }
 }

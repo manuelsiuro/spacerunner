@@ -13,12 +13,7 @@ public class ParticleSystem {
     private static final int VECTOR_COMPONENT_COUNT = 3;
     private static final int PARTICLE_START_TIME_COMPONENT_COUNT = 1;
 
-    private static final int TOTAL_COMPONENT_COUNT =
-            POSITION_COMPONENT_COUNT
-                    + COLOR_COMPONENT_COUNT
-                    + VECTOR_COMPONENT_COUNT
-                    + PARTICLE_START_TIME_COMPONENT_COUNT;
-
+    private static final int TOTAL_COMPONENT_COUNT = POSITION_COMPONENT_COUNT + COLOR_COMPONENT_COUNT + VECTOR_COMPONENT_COUNT + PARTICLE_START_TIME_COMPONENT_COUNT;
     private static final int STRIDE = TOTAL_COMPONENT_COUNT * BYTES_PER_FLOAT;
 
     private final float[] particels;
@@ -29,18 +24,11 @@ public class ParticleSystem {
     private int nextParticle;
 
     public ParticleSystem(int maxParticleCount) {
-
         particels = new float[maxParticleCount*TOTAL_COMPONENT_COUNT];
         vertexArray = new VertexArray(particels);
         this.maxParticleCount = maxParticleCount;
     }
 
-    /**
-     * @param position
-     * @param color
-     * @param diretion
-     * @param particleStartTime
-     */
     public void addParticle(Geometry.Point position, int color, Geometry.Vector diretion, float particleStartTime){
         final int particleOffset = nextParticle * TOTAL_COMPONENT_COUNT;
 
@@ -50,7 +38,6 @@ public class ParticleSystem {
         if(currentParticleCount < maxParticleCount){
             currentParticleCount++;
         }
-
 
         if(nextParticle == maxParticleCount){
             nextParticle = 0;
@@ -68,7 +55,7 @@ public class ParticleSystem {
         particels[currentOffset++] = diretion.y;
         particels[currentOffset++] = diretion.z;
 
-        particels[currentOffset++] = particleStartTime;
+        particels[currentOffset] = particleStartTime;
 
         vertexArray.updateBuffer(particels, particleOffset, TOTAL_COMPONENT_COUNT);
     }

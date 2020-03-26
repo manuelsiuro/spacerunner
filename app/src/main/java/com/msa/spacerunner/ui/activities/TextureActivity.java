@@ -10,6 +10,10 @@ import android.view.View;
 import com.msa.spacerunner.R;
 import com.msa.spacerunner.common.TextureHelper;
 import com.msa.spacerunner.models.Cube;
+import com.msa.spacerunner.models.Plane;
+import com.msa.spacerunner.models.Sphere;
+import com.msa.spacerunner.models.SphereTexture;
+import com.msa.spacerunner.models.Pyramide;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -29,6 +33,13 @@ public class TextureActivity extends Activity implements GLSurfaceView.Renderer 
 
     private static int[] textures;
     private static Cube[] cubes;
+    private static Plane[] planes;
+    private static SphereTexture[] sphereTextures;
+    private static Pyramide[] pyramides;
+
+    Sphere sphere;
+
+
 
     private static final int TEXTURE_GLASS = 0;
     private static final int TEXTURE_GRASS = 1;
@@ -37,6 +48,7 @@ public class TextureActivity extends Activity implements GLSurfaceView.Renderer 
     private static final int TEXTURE_WALL = 4;
     private static final int TEXTURE_WALL2 = 5;
     private static final int TEXTURE_WOOD = 6;
+    private static final int TEXTURE_GALAXY = 7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,14 +71,25 @@ public class TextureActivity extends Activity implements GLSurfaceView.Renderer 
                 R.drawable.lezard,
                 R.drawable.wall,
                 R.drawable.wall2,
-                R.drawable.wood
+                R.drawable.wood,
+                R.drawable.galaxy
         };
         textures = TextureHelper.loadTexture(this, t);
 
         cubes = new Cube[t.length];
+        planes = new Plane[t.length];
+        sphereTextures = new SphereTexture[t.length];
+        pyramides = new Pyramide[t.length];
+
         for (int i = 0; i < t.length; i++) {
             cubes[i] = new Cube(this, textures[i]);
+            planes[i] = new Plane(this, textures[i]);
+            sphereTextures[i] = new SphereTexture(this, textures[i]);
+            pyramides[i] = new Pyramide(this, textures[i]);
         }
+
+        sphere = new Sphere(this, 1,30,60);
+
 
         // Color Background RGBA Blue
         GLES20.glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
@@ -91,25 +114,73 @@ public class TextureActivity extends Activity implements GLSurfaceView.Renderer 
         Matrix.setLookAtM(modelViewMatrix, 0, eye[0], eye[1], eye[2], at[0], at[1], at[2], up[0], up[1], up[2]);
 
         // Move world on z
-        zMvt += 0.1f;
+        zMvt += 0.0f;
         Matrix.translateM(modelViewMatrix, 0, 0.0f, -3.0f, -5.0f + zMvt);
 
         // Add cube
-        for (int i = 0; i < 100; i++) {
-            drawCube(cubes[TEXTURE_GLASS],-4.0f, -3.0f, -5.0f - (i*2.0f), 0.5f, 0.5f, 0.5f);
-            drawCube(cubes[TEXTURE_GRASS],-2f, -3.0f, -5.0f - (i*2.0f), 0.5f, 0.5f, 0.5f);
-            drawCube(cubes[TEXTURE_STEEL],0f, -3.0f, -5.0f - (i*2.0f), 0.5f, 0.5f, 0.5f);
-            drawCube(cubes[TEXTURE_LIZARD],2f, -3.0f, -5.0f - (i*2.0f), 0.5f, 0.5f, 0.5f);
-            drawCube(cubes[TEXTURE_WALL],4f, -3.0f, -5.0f - (i*2.0f), 0.5f, 0.5f, 0.5f);
+        for (int i = 0; i < 200; i++) {
+            drawCube(cubes[TEXTURE_GLASS],-2.0f, -3.0f, -5.0f - (i*1.0f), 0.5f, 0.5f, 0.5f);
+            drawCube(cubes[TEXTURE_GRASS],-1f, -3.0f, -5.0f - (i*1.0f), 0.5f, 0.5f, 0.5f);
+            drawCube(cubes[TEXTURE_STEEL],0f, -3.0f, -5.0f - (i*1.0f), 0.5f, 0.5f, 0.5f);
+            drawCube(cubes[TEXTURE_LIZARD],1f, -3.0f, -5.0f - (i*1.0f), 0.5f, 0.5f, 0.5f);
+            drawCube(cubes[TEXTURE_WALL],2f, -3.0f, -5.0f - (i*1.0f), 0.5f, 0.5f, 0.5f);
         }
 
-        drawCube(cubes[TEXTURE_WOOD], -4.0f, -4.0f, -5.0f, 200.0f, 0.2f, 200.0f);
-        drawCube(cubes[TEXTURE_WALL2], -4.0f, 13.0f, -5.0f, 200.0f, 0.2f, 200.0f);
+        // FLOOR
+        drawCube(cubes[TEXTURE_GRASS], -4.0f, -4.0f, -5.0f, 200.0f, 0.2f, 200.0f);
 
+        // SKY
+        drawCube(cubes[TEXTURE_GALAXY], -4.0f, 13.0f, -5.0f, 200.0f, 0.2f, 200.0f);
+
+        // Plane
+        drawPlane(planes[TEXTURE_WALL],2.0f, -2.0f, 0.0f, 2.0f, 1.0f, 2.0f); // change size with w*l
+
+        float[] ballColor = new float[]{0.0f, 1f, 0.0f, 1.0f};
+        drawSphere(-2.0f, -1.5f, -5.0f, ballColor);
+        ballColor = new float[]{0.0f, 0.0f, 1.0f, 1.0f};
+        drawSphere(4.0f, 2.0f, -10.0f, ballColor);
+        ballColor = new float[]{1.0f, 0.0f, 1.0f, 1.0f};
+        drawSphere(6.0f, 2.0f, -20.0f, ballColor);
+
+        drawSphereTexture(sphereTextures[TEXTURE_GLASS], -2.0f, 0.0f, -10.0f, 1.0f, 1.0f, 1.0f);
+        drawSphereTexture(sphereTextures[TEXTURE_GRASS], -1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+        drawSphereTexture(sphereTextures[TEXTURE_STEEL], 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+        drawSphereTexture(sphereTextures[TEXTURE_LIZARD], 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+        drawSphereTexture(sphereTextures[TEXTURE_GALAXY], 2.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+
+        drawSphereTexture(sphereTextures[TEXTURE_WALL], -2.0f, 0.0f, -2.0f, 1.0f, 1.0f, 1.0f);
+        drawSphereTexture(sphereTextures[TEXTURE_WALL2], -1.0f, 0.0f, -2.0f, 1.0f, 1.0f, 1.0f);
+        drawSphereTexture(sphereTextures[TEXTURE_WOOD], 0.0f, 0.0f, -2.0f, 1.0f, 1.0f, 1.0f);
+
+        drawPyramide(pyramides[TEXTURE_GLASS], -2.0f, 0.0f, 2.0f, 1.0f, 1.0f, 1.0f);
+        drawPyramide(pyramides[TEXTURE_GRASS], -1.0f, 0.0f, -4.0f, 0.5f, 0.5f, 0.5f);
+        drawPyramide(pyramides[TEXTURE_STEEL], 0.0f, 0.0f, -4.0f, 0.5f, 0.5f, 0.5f);
+        drawPyramide(pyramides[TEXTURE_LIZARD], 1.0f, 0.0f, -4.0f, 0.5f, 0.5f, 0.5f);
+        drawPyramide(pyramides[TEXTURE_GALAXY], 2.0f, 0.0f, -4.0f, 0.5f, 0.5f, 0.5f);
+
+        drawPyramide(pyramides[TEXTURE_WALL], -2.0f, 0.0f, -6.0f, 0.5f, 0.5f, 0.5f);
+        drawPyramide(pyramides[TEXTURE_WALL2], -1.0f, 0.0f, -6.0f, 0.5f, 0.5f, 0.5f);
+        drawPyramide(pyramides[TEXTURE_WOOD], 0.0f, 0.0f, -6.0f, 0.5f, 0.5f, 0.5f);
+    }
+
+    private void drawPyramide(Pyramide p, float x, float y, float z, float w, float h, float l) {
+        p.draw(modelViewMatrix, projectionMatrix, x, y, z, w, h, l);
+    }
+
+    private void drawSphereTexture(SphereTexture s, float x, float y, float z, float w, float h, float l) {
+        s.draw(modelViewMatrix, projectionMatrix, x, y, z, w, h, l);
     }
 
     private void drawCube(Cube c, float x, float y, float z, float w, float h, float l) {
         c.draw(modelViewMatrix, projectionMatrix, x, y, z, w, h, l);
+    }
+
+    private void drawPlane(Plane p, float x, float y, float z, float w, float h, float l) {
+        p.draw(modelViewMatrix, projectionMatrix, x, y, z, w, h, l);
+    }
+
+    private void drawSphere(float x, float y, float z, float[] ballColor) {
+        sphere.draw(modelViewMatrix, projectionMatrix, x, y, z, ballColor);
     }
 
     private void initializeViewport(int width, int height) {

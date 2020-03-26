@@ -3,14 +3,11 @@ package com.msa.spacerunner.models;
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
-import android.util.Log;
 
 import com.msa.spacerunner.R;
 import com.msa.spacerunner.common.RawResourceReader;
 import com.msa.spacerunner.shaders.ShadersUtils;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 public class Cube {
@@ -41,247 +38,242 @@ public class Cube {
     private static int u_Texture;
     private static int u_AmbientLight;
 
+    // In OpenGL counter-clockwise winding is default. This means that when we look at a triangle,
+    // if the points are counter-clockwise we are looking at the "front". If not we are looking at
+    // the back. OpenGL has an optimization where all back-facing triangles are culled, since they
+    // usually represent the backside of an object and aren't visible anyways.
     // X, Y, Z
-    private static final float[] cubePositionData =
-            {
-                    // In OpenGL counter-clockwise winding is default. This means that when we look at a triangle,
-                    // if the points are counter-clockwise we are looking at the "front". If not we are looking at
-                    // the back. OpenGL has an optimization where all back-facing triangles are culled, since they
-                    // usually represent the backside of an object and aren't visible anyways.
+    private static final float[] cubePositionData = {
+        // Front face
+        -1.0f, 1.0f, 1.0f,
+        -1.0f, -1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f,
+        -1.0f, -1.0f, 1.0f,
+        1.0f, -1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f,
 
-                    // Front face
-                    -1.0f, 1.0f, 1.0f,
-                    -1.0f, -1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f,
-                    -1.0f, -1.0f, 1.0f,
-                    1.0f, -1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f,
+        // Right face
+        1.0f, 1.0f, 1.0f,
+        1.0f, -1.0f, 1.0f,
+        1.0f, 1.0f, -1.0f,
+        1.0f, -1.0f, 1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f, 1.0f, -1.0f,
 
-                    // Right face
-                    1.0f, 1.0f, 1.0f,
-                    1.0f, -1.0f, 1.0f,
-                    1.0f, 1.0f, -1.0f,
-                    1.0f, -1.0f, 1.0f,
-                    1.0f, -1.0f, -1.0f,
-                    1.0f, 1.0f, -1.0f,
+        // Back face
+        1.0f, 1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        -1.0f, 1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,
+        -1.0f, 1.0f, -1.0f,
 
-                    // Back face
-                    1.0f, 1.0f, -1.0f,
-                    1.0f, -1.0f, -1.0f,
-                    -1.0f, 1.0f, -1.0f,
-                    1.0f, -1.0f, -1.0f,
-                    -1.0f, -1.0f, -1.0f,
-                    -1.0f, 1.0f, -1.0f,
+        // Left face
+        -1.0f, 1.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,
+        -1.0f, 1.0f, 1.0f,
+        -1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f, 1.0f,
+        -1.0f, 1.0f, 1.0f,
 
-                    // Left face
-                    -1.0f, 1.0f, -1.0f,
-                    -1.0f, -1.0f, -1.0f,
-                    -1.0f, 1.0f, 1.0f,
-                    -1.0f, -1.0f, -1.0f,
-                    -1.0f, -1.0f, 1.0f,
-                    -1.0f, 1.0f, 1.0f,
+        // Top face
+        -1.0f, 1.0f, -1.0f,
+        -1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, -1.0f,
+        -1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, -1.0f,
 
-                    // Top face
-                    -1.0f, 1.0f, -1.0f,
-                    -1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, -1.0f,
-                    -1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, -1.0f,
-
-                    // Bottom face
-                    1.0f, -1.0f, -1.0f,
-                    1.0f, -1.0f, 1.0f,
-                    -1.0f, -1.0f, -1.0f,
-                    1.0f, -1.0f, 1.0f,
-                    -1.0f, -1.0f, 1.0f,
-                    -1.0f, -1.0f, -1.0f,
-            };
+        // Bottom face
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, 1.0f,
+        -1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, 1.0f,
+        -1.0f, -1.0f, 1.0f,
+        -1.0f, -1.0f, -1.0f
+    };
 
     // R, G, B, A
-    private static final float[] cubeColorData =
-            {
-                    // Front face (red)
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
+    private static final float[] cubeColorData = {
+        // Front face (white)
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
 
-                    // Right face (green)
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
+        // Right face (white)
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
 
-                    // Back face (blue)
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
+        // Back face (white)
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
 
-                    // Left face (yellow)
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
+        // Left face (white)
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
 
-                    // Top face (cyan)
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
+        // Top face (white)
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
 
-                    // Bottom face (magenta)
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f,
-                    1.0f, 1.0f, 1.0f, 1.0f
-            };
+        // Bottom face (white)
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f
+    };
 
     // X, Y, Z
     // The normal is used in light calculations and is a vector which points
     // orthogonal to the plane of the surface. For a cube model, the normals
     // should be orthogonal to the points of each face.
-    private static final float[] cubeNormalData =
-            {
-                    // Front face
-                    0.0f, 0.0f, 1.0f,
-                    0.0f, 0.0f, 1.0f,
-                    0.0f, 0.0f, 1.0f,
-                    0.0f, 0.0f, 1.0f,
-                    0.0f, 0.0f, 1.0f,
-                    0.0f, 0.0f, 1.0f,
+    private static final float[] cubeNormalData = {
+        // Front face
+        0.0f, 0.0f, 1.0f,
+        0.0f, 0.0f, 1.0f,
+        0.0f, 0.0f, 1.0f,
+        0.0f, 0.0f, 1.0f,
+        0.0f, 0.0f, 1.0f,
+        0.0f, 0.0f, 1.0f,
 
-                    // Right face
-                    1.0f, 0.0f, 0.0f,
-                    1.0f, 0.0f, 0.0f,
-                    1.0f, 0.0f, 0.0f,
-                    1.0f, 0.0f, 0.0f,
-                    1.0f, 0.0f, 0.0f,
-                    1.0f, 0.0f, 0.0f,
+        // Right face
+        1.0f, 0.0f, 0.0f,
+        1.0f, 0.0f, 0.0f,
+        1.0f, 0.0f, 0.0f,
+        1.0f, 0.0f, 0.0f,
+        1.0f, 0.0f, 0.0f,
+        1.0f, 0.0f, 0.0f,
 
-                    // Back face
-                    0.0f, 0.0f, -1.0f,
-                    0.0f, 0.0f, -1.0f,
-                    0.0f, 0.0f, -1.0f,
-                    0.0f, 0.0f, -1.0f,
-                    0.0f, 0.0f, -1.0f,
-                    0.0f, 0.0f, -1.0f,
+        // Back face
+        0.0f, 0.0f, -1.0f,
+        0.0f, 0.0f, -1.0f,
+        0.0f, 0.0f, -1.0f,
+        0.0f, 0.0f, -1.0f,
+        0.0f, 0.0f, -1.0f,
+        0.0f, 0.0f, -1.0f,
 
-                    // Left face
-                    -1.0f, 0.0f, 0.0f,
-                    -1.0f, 0.0f, 0.0f,
-                    -1.0f, 0.0f, 0.0f,
-                    -1.0f, 0.0f, 0.0f,
-                    -1.0f, 0.0f, 0.0f,
-                    -1.0f, 0.0f, 0.0f,
+        // Left face
+        -1.0f, 0.0f, 0.0f,
+        -1.0f, 0.0f, 0.0f,
+        -1.0f, 0.0f, 0.0f,
+        -1.0f, 0.0f, 0.0f,
+        -1.0f, 0.0f, 0.0f,
+        -1.0f, 0.0f, 0.0f,
 
-                    // Top face
-                    0.0f, 1.0f, 0.0f,
-                    0.0f, 1.0f, 0.0f,
-                    0.0f, 1.0f, 0.0f,
-                    0.0f, 1.0f, 0.0f,
-                    0.0f, 1.0f, 0.0f,
-                    0.0f, 1.0f, 0.0f,
+        // Top face
+        0.0f, 1.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
 
-                    // Bottom face
-                    0.0f, -1.0f, 0.0f,
-                    0.0f, -1.0f, 0.0f,
-                    0.0f, -1.0f, 0.0f,
-                    0.0f, -1.0f, 0.0f,
-                    0.0f, -1.0f, 0.0f,
-                    0.0f, -1.0f, 0.0f
-            };
+        // Bottom face
+        0.0f, -1.0f, 0.0f,
+        0.0f, -1.0f, 0.0f,
+        0.0f, -1.0f, 0.0f,
+        0.0f, -1.0f, 0.0f,
+        0.0f, -1.0f, 0.0f,
+        0.0f, -1.0f, 0.0f
+    };
 
     // S, T (or X, Y)
     // Texture coordinate data.
     // Because images have a Y axis pointing downward (values increase as you move down the image) while
     // OpenGL has a Y axis pointing upward, we adjust for that here by flipping the Y axis.
     // What's more is that the texture coordinates are the same for every face.
-    private static final float[] cubeTextureCoordinateData =
-            {
-                    // Front face
-                    0.0f, 0.0f,
-                    0.0f, 1.0f,
-                    1.0f, 0.0f,
-                    0.0f, 1.0f,
-                    1.0f, 1.0f,
-                    1.0f, 0.0f,
+    private static final float[] cubeTextureCoordinateData = {
+        // Front face
+        0.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 1.0f,
+        1.0f, 0.0f,
 
-                    // Right face
-                    0.0f, 0.0f,
-                    0.0f, 1.0f,
-                    1.0f, 0.0f,
-                    0.0f, 1.0f,
-                    1.0f, 1.0f,
-                    1.0f, 0.0f,
+        // Right face
+        0.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 1.0f,
+        1.0f, 0.0f,
 
-                    // Back face
-                    0.0f, 0.0f,
-                    0.0f, 1.0f,
-                    1.0f, 0.0f,
-                    0.0f, 1.0f,
-                    1.0f, 1.0f,
-                    1.0f, 0.0f,
+        // Back face
+        0.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 1.0f,
+        1.0f, 0.0f,
 
-                    // Left face
-                    0.0f, 0.0f,
-                    0.0f, 1.0f,
-                    1.0f, 0.0f,
-                    0.0f, 1.0f,
-                    1.0f, 1.0f,
-                    1.0f, 0.0f,
+        // Left face
+        0.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 1.0f,
+        1.0f, 0.0f,
 
-                    // Top face
-                    0.0f, 0.0f,
-                    0.0f, 1.0f,
-                    1.0f, 0.0f,
-                    0.0f, 1.0f,
-                    1.0f, 1.0f,
-                    1.0f, 0.0f,
+        // Top face
+        0.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 1.0f,
+        1.0f, 0.0f,
 
-                    // Bottom face
-                    0.0f, 0.0f,
-                    0.0f, 1.0f,
-                    1.0f, 0.0f,
-                    0.0f, 1.0f,
-                    1.0f, 1.0f,
-                    1.0f, 0.0f
-            };
+        // Bottom face
+        0.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 1.0f,
+        1.0f, 0.0f
+    };
 
-    private final FloatBuffer mCubePositions;
-    private final FloatBuffer mCubeColors;
-    private final FloatBuffer mCubeNormals;
-    private final FloatBuffer mCubeTextureCoordinates;
+    private final FloatBuffer fbPositions;
+    private final FloatBuffer fbColors;
+    private final FloatBuffer fbNormals;
+    private final FloatBuffer fbTextureCoordinates;
 
     private int textureId;
 
     public Cube(Context context, int tId) {
         // Initialize the buffers.
-        mCubePositions = makeFloatBuffer(cubePositionData);
-        mCubeColors = makeFloatBuffer(cubeColorData);
-        mCubeNormals = makeFloatBuffer(cubeNormalData);
-        mCubeTextureCoordinates = makeFloatBuffer(cubeTextureCoordinateData);
+        fbPositions = ModelUtils.makeFloatBuffer(cubePositionData);
+        fbColors = ModelUtils.makeFloatBuffer(cubeColorData);
+        fbNormals = ModelUtils.makeFloatBuffer(cubeNormalData);
+        fbTextureCoordinates = ModelUtils.makeFloatBuffer(cubeTextureCoordinateData);
 
         textureId = tId;
         initializeGL(context);
     }
 
     private void initializeGL(Context context) {
-        final String vertexShaderSource = RawResourceReader.readTextFileFromRawResource(context, R.raw.per_pixel_vertex_shader);
-        final String fragmentShaderSource = RawResourceReader.readTextFileFromRawResource(context, R.raw.per_pixel_fragment_shader);
+        final String vertexShaderSource = RawResourceReader.readTextFileFromRawResource(context, R.raw.vertex_texture_shader);
+        final String fragmentShaderSource = RawResourceReader.readTextFileFromRawResource(context, R.raw.fragment_texture_shader);
 
         _program = ShadersUtils.createProgram(vertexShaderSource, fragmentShaderSource);
 
@@ -316,10 +308,10 @@ public class Cube {
         Matrix.translateM(mModelMatrix, 0, x, y, z);
         Matrix.scaleM(mModelMatrix, 0, w, h, l);
 
-        glSet(mCubePositions, a_Position, 3);
-        glSet(mCubeColors, a_Color, 4);
-        glSet(mCubeNormals, a_Normal, 3);
-        glSet(mCubeTextureCoordinates, a_TexCoordinate, 2);
+        ModelUtils.glSetVertexAttrib(fbPositions, a_Position, 3);
+        ModelUtils.glSetVertexAttrib(fbColors, a_Color, 4);
+        ModelUtils.glSetVertexAttrib(fbNormals, a_Normal, 3);
+        ModelUtils.glSetVertexAttrib(fbTextureCoordinates, a_TexCoordinate, 2);
 
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId);
 
@@ -347,19 +339,5 @@ public class Cube {
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 36);
     }
 
-    private void glSet(FloatBuffer fb, int key, int size) {
-        fb.position(0);
-        GLES20.glVertexAttribPointer(key, size, GLES20.GL_FLOAT, false, 0, fb);
-        GLES20.glEnableVertexAttribArray(key);
-    }
 
-    public static FloatBuffer makeFloatBuffer(float[] arr) {
-        int iSize = arr.length;
-        ByteBuffer bb = ByteBuffer.allocateDirect(iSize * 4);
-        bb.order(ByteOrder.nativeOrder());
-        FloatBuffer fb = bb.asFloatBuffer();
-        fb.put(arr);
-        fb.position (0);
-        return fb;
-    }
 }

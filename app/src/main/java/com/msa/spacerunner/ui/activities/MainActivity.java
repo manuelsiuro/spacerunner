@@ -28,6 +28,8 @@ import com.msa.spacerunner.ui.fragments.TutorialFragment;
 
 // Sphere : https://github.com/NickBeeuwsaert/OpenGL-ES-2.0-Example/tree/master/src/com/razerwolf/opengles20example
 
+// obj viewer : https://github.com/WenlinMao/android-3d-model-viewer
+
 public class MainActivity extends Activity implements TitleScreenFragment.OnActionListener {
 
     final static int FRAME_ID = 10;

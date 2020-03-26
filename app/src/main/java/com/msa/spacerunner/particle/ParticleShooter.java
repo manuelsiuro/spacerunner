@@ -1,9 +1,8 @@
 package com.msa.spacerunner.particle;
 
-import java.util.Random;
+import android.opengl.Matrix;
 
-import static android.opengl.Matrix.multiplyMV;
-import static android.opengl.Matrix.setRotateEulerM;
+import java.util.Random;
 
 public class ParticleShooter {
     private final Geometry.Point position;
@@ -18,8 +17,7 @@ public class ParticleShooter {
     private float[] directionVector = new float[4];
     private float[] resultVector = new float[4];
 
-    public ParticleShooter(Geometry.Point position, Geometry.Vector direction, int color,
-                           float angleVariance, float speedVariance){
+    public ParticleShooter(Geometry.Point position, Geometry.Vector direction, int color, float angleVariance, float speedVariance) {
         this.position = position;
         this.color = color;
 
@@ -31,17 +29,15 @@ public class ParticleShooter {
         directionVector[2] = direction.z;
     }
 
-    public void addParticles(ParticleSystem particleSystem, float currentTime, int count){
+    public void addParticles(ParticleSystem particleSystem, float currentTime, int count) {
+
         for(int i = 0; i < count; i++){
-
-
-            setRotateEulerM(rotationMatrix, 0,
+            Matrix.setRotateEulerM(rotationMatrix, 0,
                     (random.nextFloat() - 0.5f)*angleVariance,
                     (random.nextFloat() - 0.5f)*angleVariance,
                     (random.nextFloat() - 0.5f)*angleVariance);
 
-
-            multiplyMV(
+            Matrix.multiplyMV(
                     resultVector,0,
                     rotationMatrix,0,
                     directionVector,0);
